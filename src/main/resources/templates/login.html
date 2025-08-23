@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<!-- Login Form -->
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card shadow">
+                <div class="card-title text-center border-bottom">
+                    <h2 class="p-3">Welcome, User!</h2>
+
+                    <p>Please log in</p>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/authenticate-user}" th:object="${loginRequest}" method="POST">
+                        <div class="mb-4">
+                            <input type="email" th:field="*{email}" class="form-control" id="username"
+                                   placeholder="User Email" required/>
+                        </div>
+                        <div class="mb-4">
+                            <input type="password" th:field="*{password}" class="form-control" id="password"
+                                   placeholder="Password" required/>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn text-light btn-login">Login</button>
+                        </div>
+                        <div class="mb-4 mt-3">
+                            <p class="text-center">Forgot Password?</p>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <p>Don't have an account? <a th:href="@{/signup}">Sign Up</a></p>
+                        </div>
+                        <div class="text-center">
+                            <p>back to <a th:href="@{/home}">Home</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alert Messages -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3 ">
+    <div id="toastError" th:if="${param.error}" class="toast text-bg-danger" role="alert" aria-live="assertive"
+         aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Error</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <p>Invalid credentials!</p>
+        </div>
+    </div>
+
+    <div id="toastSuccess" th:if="${param.logout}" class="toast text-bg-success" role="alert" aria-live="assertive"
+         aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Success</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <p>Logged out successfully!</p>
+        </div>
+    </div>
+</div>
+
+<!--<script th:inline="javascript">-->
+<!--  const toastTrigger = document.getElementById('liveToastBtn')-->
+<!--const toastLiveExample = document.getElementById('liveToast')-->
+
+<!--if (toastTrigger) {-->
+<!--  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)-->
+<!--  toastTrigger.addEventListener('click', () => {-->
+<!--    toastBootstrap.show()-->
+<!--  })-->
+<!--}-->
+<!--</script>-->
+<script th:src="@{/javascript/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>ADMIN PAGE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="" th:href="@{/css/admin_page.css}"/>
+    <link rel="stylesheet" href="" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+
+<body>
+<div class="container">
+    <div class="mx-auto">
+        <h1 class="text-left">Dashboard</h1>
+        <section class="tables">
+            <div class="admins">
+                <h2>Admins :</h2>
+                <table>
+                    <tr>
+                        <th>Admin_Id</th>
+                        <th>Admin_Name</th>
+                        <th>Admin_Email</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(adminUsers)}">
+                        <td colspan="5" style="text-align: center;">No Admins Found</td>
+                    </tr>
+                    <tr th:each="admin :${adminUsers}">
+                        <td th:text="${admin.userId}"></td>
+                        <td th:text="${admin.userName}"></td>
+                        <td th:text="${admin.userEmail}"></td>
+                        <td class="d-inline-flex"><a class="btn" style="color: blue;" href=""
+                                                     th:href="@{'/admin/add-update-user/'+${admin.userId}}"><i
+                                class="fa-solid fa-pen"></i></a><span>&nbsp;</span>
+                            <form th:action="@{'/admin/delete-user/'+${admin.userId}}" method="post"
+                                  onsubmit="return confirm('Are you sure you want to delete this admin?');">
+                                <button class="btn" style="color: red;" type="submit"><i
+                                        class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+                <a href="" class="btns" th:href="@{/admin/add-update-user}">Add_Admin</a>
+            </div>
+
+            <div class="users" th:object="${userObject}">
+                <h2>Users :</h2>
+                <table>
+                    <tr>
+                        <th>User_Id</th>
+                        <th>User_Name</th>
+                        <th>User_Email</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr th:each="user :${customerUsers}">
+                        <td th:text="${user.userId}"></td>
+                        <td th:text="${user.userName}"></td>
+                        <td th:text="${user.userEmail}"></td>
+                        <td class="d-inline-flex"><a class="btn" style="color: blue;" href=""
+                                                     th:href="@{'/admin/add-update-user/'+${user.userId}}"><i
+                                class="fa-solid fa-pen"></i></a><span>&nbsp;</span>
+                            <form th:action="@{'/admin/delete-user/'+${user.userId}}" method="post"
+                                  onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                <button class="btn" style="color: red;" type="submit"><i
+                                        class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+                <a href="" class="btns" th:href="@{'/admin/add-update-user'}">Add_User</a>
+            </div>
+
+
+            <div class="products">
+                <h2>Products :</h2>
+                <table>
+                    <tr>
+                        <th>Product_Id</th>
+                        <th>Product_Name</th>
+                        <th>Product_Price</th>
+                        <th>Product_Image</th>
+                        <th>Product_Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(products)}">
+                        <td colspan="4" style="text-align: center;">No Products Found</td>
+                    </tr>
+                    <tr th:each="product :${products}">
+                        <td th:text="${product.productId}"></td>
+                        <td th:text="${product.productName}"></td>
+                        <td th:text="${product.productPrice}"></td>
+                        <td th:text="${product.productImage}"></td>
+                        <td th:text="${product.productQuantity}"></td>
+                        <td class="d-inline-flex"><a class="btn" style="color: blue;" href=""
+                                                     th:href="@{'/admin/add-update-product/'+${product.productId}}"><i
+                                class="fa-solid fa-pen"></i></a><span>&nbsp;</span>
+                            <form th:action="@{'/admin/delete-product/'+${product.productId}}" method="post"
+                                  onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                <button class="btn" style="color: red;" type="submit"><i
+                                        class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+                <a href="" class="btns" th:href="@{'/admin/add-update-product'}">Add_Product</a>
+            </div>
+
+            <div class="details">
+                <h2>Orders :</h2>
+                <table>
+                    <tr>
+                        <th>Order_Id</th>
+                        <th>User_Name</th>
+                        <th>User_Email</th>
+                        <th>Product_Name</th>
+                        <th>Product_Price</th>
+                        <th>Product_Quantity</th>
+                        <th>Date</th>
+                        <th>Total_Ammount</th>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(orders)}">
+                        <td colspan="8" style="text-align: center;">No Orders Found</td>
+                    </tr>
+                    <tr th:each="order :${orders}">
+                        <td th:text="${order.orderId}"></td>
+                        <td th:text="${order.user.userName}"></td>
+                        <td th:text="${order.user.userEmail}"></td>
+                        <td th:text="${order.orderQuantity}"></td>
+                        <td th:text="${order.orderDate}"></td>
+                        <td th:text="${order.totalAmount}"></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+
+</body>
+
+</html>

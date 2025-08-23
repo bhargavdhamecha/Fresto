@@ -1,0 +1,27 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+.header {
+  min-height: 50px;
+  background: lightcyan;
+}
+
+.footer {
+  min-height: 200px;
+  background: PapayaWhip;
+}
+
+
+/* The article fills all the space between header & footer */
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-main {
+  flex: 1;
+  padding: 50px;
+}

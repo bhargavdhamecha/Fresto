@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">FRESTO</title>
+    <!-- Bootstrap CDN -->
+    <!--    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous" defer></script>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/base-template.css}">
+</head>
+<body>
+<!-- Common navbar or header can go here -->
+<div class="header" layout:fragment="~{header}">
+    <div th:replace="~{fragments/header :: header}"></div>
+</div>
+
+<!--<div th:replace="~{${content}}"></div>-->
+<div class="content-main">
+    <div layout:fragment="page_content"></div>
+</div>
+
+<!-- Alert messages -->
+
+<div class="alert-message" id="alert-flash" layout:fragment="~{alert-message}" th:data-flash-message="${success}">
+    <div th:replace="~{fragments/alert-message :: alert-message}"></div>
+</div>
+<!-- Footer -->
+<!--<div class="footer" layout:fragment="~{footer}"><div th:replace="~{fragments/footer :: footer}"></div></div>-->
+
+<!-- Bootstrap JS (optional, for components like modals) -->
+<script th:src="@{/javascript/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/javascript/index.js}"></script>
+<!--<script th:inline="javascript">-->
+<!--    var messageElement = document.getElementById('alert-flash');-->
+<!--    var flashMessage = messageElement.getAttribute('data-flash-message');-->
+<!--    if (flashMessage) {-->
+<!--       console.log("Flash message from data attribute: " + flashMessage);-->
+<!--    }-->
+<!--</script>-->
+</body>
+</html>

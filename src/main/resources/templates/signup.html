@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<!-- Login Form -->
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card shadow">
+                <div class="card-title text-center border-bottom">
+                    <h2 class="p-3">Register Your Self</h2>
+                    <p>Please sign up</p>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/auth/register}" th:object="${registrationRequest}" method="POST">
+                        <div class="mb-4">
+                            <input type="text" th:field="*{name}" class="form-control" id="username"
+                                   placeholder="User Name" required/>
+                        </div>
+                        <div class="mb-4">
+                            <input type="email" th:field="*{email}" class="form-control" id="email"
+                                   placeholder="User Email" required/>
+                        </div>
+                        <div class="mb-4">
+                            <input type="password" th:field="*{password}" class="form-control" id="password"
+                                   placeholder="Password" required/>
+                        </div>
+                        <div class="mb-4">
+                            <input type="checkbox" th:field="*{adminRights}" class="form-check-input" id="adminuser"/>
+                            <label for="adminuser" class="form-label">Admin User</label>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn text-light btn-login">SignUp</button>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <p>Already have an account? <a th:href="@{/login}">login</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

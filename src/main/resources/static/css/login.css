@@ -1,0 +1,19 @@
+
+
+input:focus, button:focus {
+  border: 1px solid #803c3c !important;
+  box-shadow: none !important;
+}
+
+.form-check-input:checked {
+  background-color: #000 !important;
+  border-color: #000 !important;
+}
+
+.card, .btn, input{
+  border-radius:0 !important;
+}
+
+.btn-login{
+    background-color: #803c3c !important;
+}

@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base-template}">
+<head>
+    <title>Cart</title>
+</head>
+<body>
+<div layout:fragment="page_content" id="page_content">
+    <h1 class="pr">Shipping Total</h1>
+    <div class="cart">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${cartItems}">
+                <td th:text="${item.product.productName}">Product Name</td>
+                <td th:text="${item.product.productPrice}">Price</td>
+                <td th:text="${item.quantity}">Quantity</td>
+                <td th:text="${item.product.productPrice * item.quantity}">Total</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>Total Amount:
+            <span th:text="${totalAmount}">0.00</span>
+        </h3>
+
+        <form action="#" th:action="@{/order/checkout}" method="post">
+            <button type="submit" class="btn btn-primary">Checkout</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

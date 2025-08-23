@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ADD-UPDATE Product</title>
+    <link rel="stylesheet" href="" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="mx-auto" style="max-width: 600px;">
+        <h2 th:text="${user == null ? 'Add New User' : 'Update User'}"></h2>
+        <!-- Add User Form -->
+        <form th:if="${user == null}" th:object="${requestDTO}" th:action="@{/admin/add-update-user}" method="post">
+            <!-- form fields here -->
+            <div class="mb-3">
+                <label for="userName" class="form-label">User Name</label>
+                <input type="text" class="form-control" id="userName" name="userName" th:field="*{name}" required/>
+            </div>
+            <div class="mb-3">
+                <label for="userEmail" class="form-label">User Email</label>
+                <input type="email" class="form-control" id="userEmail" name="userEmail" th:field="*{email}" required/>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="text" class="form-control" id="password" name="password" th:field="*{password}" required/>
+            </div>
+            <div class="mb-3">
+                <input type="checkbox" class="form-check-input" id="adminRights" th:field="*{adminRights}"
+                       name="adminRights"/>
+                <label for="adminRights" class="form-check-label">Admin Rights</label>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <span>Add User</span>
+            </button>
+        </form>
+
+
+        <!--        <span th:text="${param.id}"></span>-->
+        <!-- Update User Form -->
+        <form th:if="${user != null}" th:object="${requestDTO}"
+              th:action="@{'/admin/add-update-user/' + ${user.userId}}" method="post">
+
+            <!--        <input type="hidden" name="id" th:object="${requestDTO}" th:value="${user.userId}" />-->
+            <div class="mb-3">
+                <label for="userName1" class="form-label">User Name</label>
+                <input type="text" class="form-control" id="userName1" name="userName" th:field="*{name}" required/>
+            </div>
+            <div class="mb-3">
+                <label for="userEmail1" class="form-label">User Email</label>
+                <input type="email" class="form-control" id="userEmail1" name="userEmail" th:field="*{email}" required/>
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password1" name="password" th:field="*{password}"
+                       placeholder="Set New Password"/>
+            </div>
+            <div class="mb-3">
+                <input type="checkbox" class="form-check-input" id="adminRights1" name="adminRights"
+                       th:field="*{adminRights}"/>
+                <label for="adminRights1" class="form-check-label">Admin Rights</label>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <span>Update User</span>
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
