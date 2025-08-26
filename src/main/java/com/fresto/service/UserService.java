@@ -5,9 +5,11 @@ import com.fresto.dto.UserRequestDTO;
 import com.fresto.entity.User;
 import com.fresto.exception.UserNotFoundException;
 import com.fresto.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -22,19 +24,27 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final AuthService authService;
 
-    public UserService(UserRepository userRepository) {
+    @Autowired
+    public UserService(UserRepository userRepository, AuthService authService) {
         this.userRepository = userRepository;
+        this.authService = authService;
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public boolean registerUser(UserRequestDTO registrationRequest) {
+    public boolean registerUser(UserRequestDTO registrationRequest, HttpServletRequest request, HttpServletResponse response) {
         log.debug("Enter --> registerUser with email: {}", registrationRequest.getEmail());
         User user = new User(registrationRequest.getEmail(), encodePassword(registrationRequest.getPassword()), registrationRequest.getName(), registrationRequest.getAdminRights() ? UserType.ADMIN : UserType.USER);
         userRepository.updateOrInsert(user);
         log.debug("User registered successfully with email: {}", registrationRequest.getEmail());
+
+        // 2. Auto-login the new user
+        authService.autoLogin(request, registrationRequest, response);
+
         return true;
     }
+
 
     private String encodePassword(String password) {
         // Use BCryptPasswordEncoder to hash the password

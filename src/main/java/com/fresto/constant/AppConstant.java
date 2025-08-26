@@ -26,6 +26,7 @@ public final class AppConstant {
     public static final String ADMIN_DASHBOARD_PAGE = "admin-dashboard";
     public static final String REDIRECT_TO = "redirect:/";
     public static final String VIEW_PRODUCT_PAGE = "view-product";
+    public static final String CHECKOUT_PAGE = "checkout";
 
     // constant for Object
     public static final String REQUEST_DTO = "requestDTO";
@@ -34,5 +35,10 @@ public final class AppConstant {
     public static final String PRODUCTS_ATTRIBUTE = "products";
     public static final String USER_ID = "userId";
     public static final String PRODUCT_ID = "productId";
+    public static final String PAGE_CONTENT = "page_content";
+    public static final String SUCCESS_MESSAGE = "success";
+    public static final String ERROR_MESSAGE = "error";
+
+
 
 }

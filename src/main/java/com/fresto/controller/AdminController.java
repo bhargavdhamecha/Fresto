@@ -122,7 +122,7 @@ public class AdminController {
         if (adminService.deleteUser(id)) {
             return REDIRECT_TO + ADMIN + DASHBOARD_PATH;
         }
-        return "";
+        return EXCEPTION_PAGE;
     }
 
 
@@ -152,7 +152,7 @@ public class AdminController {
         if (adminService.deleteProduct(id)) {
             return REDIRECT_TO + ADMIN + DASHBOARD_PATH;
         }
-        return "";
+        return EXCEPTION_PAGE;
     }
 
 }

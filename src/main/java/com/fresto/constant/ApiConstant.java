@@ -23,9 +23,15 @@ public final class ApiConstant {
     public static final String VIEW_PRODUCT_PATH = "/view-product";
     public static final String DISPLAY_PRODUCTS = "/display-products";
     public static final String PRODUCT_SEARCH = "/search";
+    public static final String SORT_PRODUCT = "/sort-products";
+    public static final String GET_CART = "/get-cart";
 
     // controller paths
     public static final String ADMIN_CONTROLLER = "/admin";
+    public static final String AUTH_CONTROLLER = "/auth";
+    public static final String PRODUCT_CONTROLLER = "/products";
+    public static final String CART_CONTROLLER = "/cart";
+    public static final String ORDER_CONTROLLER = "/order";
 
     // API Endpoints
     public static final String LOGOUT = "/logout";
@@ -35,6 +41,10 @@ public final class ApiConstant {
     public static final String DELETE_PRODUCT = "/delete-product";
     public static final String ADD_TO_CART = "/add-to-cart";
     public static final String REMOVE_FROM_CART = "/remove-from-cart";
+    public static final String CLEAR_CART = "/clear-cart";
+    public static final String REGISTER_USER = "/register";
+    public static final String PLACE_ORDER = "/place-order";
+    public static final String CHECKOUT = "/checkout";
 
 
 }

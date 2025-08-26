@@ -1,6 +1,5 @@
 package com.fresto.repository;
 
-import com.fresto.constant.ProductCategory;
 import com.fresto.entity.Product;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository interface for managing Product entities.
+ */
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
@@ -26,4 +28,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = "SELECT * FROM product_master WHERE product_name LIKE %:query% OR product_desc LIKE %:query%", nativeQuery = true)
     List<Product> searchProductsByNameOrDescription(String query);
+
+    List<Product> findAllByOrderByProductNameAsc();
+
+    List<Product> findAllByOrderByProductPriceAsc();
 }

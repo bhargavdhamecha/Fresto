@@ -9,21 +9,21 @@ import com.fresto.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+import static com.fresto.constant.ApiConstant.*;
+import static com.fresto.constant.AppConstant.CART_PAGE;
+import static com.fresto.constant.AppConstant.CHECKOUT_PAGE;
 
 /**
  * Controller class for handling order-related requests.
  */
 @Slf4j
 @Controller
-@RequestMapping("/order")
+@RequestMapping(ORDER_CONTROLLER)
 public class OrderController {
 
     private final OrderService orderService;
@@ -32,7 +32,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/place-order")
+    @PostMapping(PLACE_ORDER)
     public ResponseEntity<String> addOrder(@ModelAttribute OrderRequestDTO orderRequestDTO, @AuthenticationPrincipal CustomUserDetails userDetails) {
         try {
             log.debug("placing order with orderValue: {}", orderRequestDTO);
@@ -45,17 +45,15 @@ public class OrderController {
         }
     }
 
-    @PostMapping("/checkout")
+    @PostMapping(CHECKOUT)
     public String checkout(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
         try {
             Orders order = orderService.checkout(userDetails);
             model.addAttribute("order", order);
-            return "checkout"; // Thymeleaf template
+            return CHECKOUT_PAGE; // Thymeleaf template
         } catch (IllegalStateException e) {
             model.addAttribute("error", e.getMessage());
-            return "cart"; // go back to cart if empty
+            return CART_PAGE; // go back to cart if empty
         }
     }
-
-
 }

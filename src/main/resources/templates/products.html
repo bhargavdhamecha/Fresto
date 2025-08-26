@@ -37,8 +37,8 @@
                 </form>
                 <button class="btn btn-primary" data-bs-toggle="dropdown" type="button">Sort-By</button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Name</a></li>
-                    <li><a class="dropdown-item" href="#">Price</a></li>
+                    <li><a th:href="@{/products/o/sort-products/name}" class="dropdown-item">Name</a></li>
+                    <li><a th:href="@{/products/o/sort-products/price}" class="dropdown-item" >Price</a></li>
                 </ul>
             </div>
         </div>
@@ -55,11 +55,11 @@
                     <img th:src="@{${product.productImage}}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${product.productName}"></h5>
-                        <p class="card-text" th:text="${product.productDesc}"></p>
+                        <p class="card-text text-truncate" th:text="${product.productDesc}" style="max-width: 200px"></p>
                     </div>
                     <div class="card-footer text-center">
                         <a th:href="@{'/products/view-product/' + ${product.productId}}"
-                           class="btn btn-primary text-center">Buy now</a>
+                           class="btn btn-primary text-center">Buy now at <span th:text="${product.productPrice}"></span> </a>
                     </div>
                 </div>
             </div>

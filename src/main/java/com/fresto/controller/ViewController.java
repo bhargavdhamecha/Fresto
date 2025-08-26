@@ -29,10 +29,8 @@ public class ViewController {
     public String router(Model model, HttpServletRequest request) {
         String servletPath = request.getServletPath();
         String content = resolveContent(servletPath);
-        model.addAttribute("page_content", content);
+        model.addAttribute(PAGE_CONTENT, content);
         addFormAttributesIfNeeded(servletPath, model);
-//        addProductsToProductPage(model, servletPath);
-//        addAuthenticatedUserIfPresent(model);
         log.debug("routing to page: {}", content);
         return content;
     }
@@ -63,28 +61,6 @@ public class ViewController {
             model.addAttribute("registrationRequest", new UserRequestDTO());
         }
     }
-
-//    /**
-//     * Adds the authenticated user's name to the model if present.
-//     */
-//    private void addAuthenticatedUserIfPresent(Model model) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getName())) {
-//            model.addAttribute("user", auth.getName());
-//        }
-//    }
-
-//    private void addProductsToProductPage (Model model, String path){
-//        if(PRODUCTS_PATH.equals(path)){
-//            model.addAttribute("products", productService.getAllProducts());
-//        }
-//    }
-
-//    @GetMapping(VIEW_PRODUCT_PATH+"/{productId}")
-//    public String viewProduct(Model model, HttpServletRequest request, @PathVariable Integer productId) {
-//        model.addAttribute("product", productService.getProductDetailsById(productId));
-//        return VIEW_PRODUCT_PAGE;
-//    }
 
 
 }

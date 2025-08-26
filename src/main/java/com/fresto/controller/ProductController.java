@@ -17,7 +17,7 @@ import static com.fresto.constant.AppConstant.*;
  * ProductController handles requests related to product display and details.
  */
 @Slf4j
-@RequestMapping(PRODUCTS_PATH)
+@RequestMapping(PRODUCT_CONTROLLER)
 @Controller
 public class ProductController {
 
@@ -30,7 +30,7 @@ public class ProductController {
     @GetMapping({"/o"+DISPLAY_PRODUCTS + "/{category}", "/o"+DISPLAY_PRODUCTS})
     public String displayProducts(Model model, @PathVariable(required = false) String category) {
         log.debug("Enter in display Products with category: {}", category);
-        model.addAttribute("page_content", PRODUCTS_PAGE);
+        model.addAttribute(PAGE_CONTENT, PRODUCTS_PAGE);
         if (category != null) {
             model.addAttribute(PRODUCTS_ATTRIBUTE, productService.getAllProductsByCategory(category));
         } else {
@@ -48,8 +48,16 @@ public class ProductController {
     @GetMapping({"/o" + PRODUCT_SEARCH})
     public String searchProducts(Model model, @RequestParam String query){
         log.debug("Enter in searchProducts with query: {}", query);
-        model.addAttribute("page_content", PRODUCTS_PAGE);
+        model.addAttribute(PAGE_CONTENT, PRODUCTS_PAGE);
         model.addAttribute(PRODUCTS_ATTRIBUTE, productService.searchProductsByNameOrDescription(query));
+        return PRODUCTS_PAGE;
+    }
+
+    @GetMapping("/o"+SORT_PRODUCT+"/{sortBy}")
+    public String sortProducts(Model model, @PathVariable String sortBy){
+        log.debug("Enter in sortProducts with sortBy: {}", sortBy);
+        model.addAttribute(PAGE_CONTENT, PRODUCTS_PAGE);
+        model.addAttribute(PRODUCTS_ATTRIBUTE, productService.sortProducts(sortBy));
         return PRODUCTS_PAGE;
     }
 }

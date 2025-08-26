@@ -59,7 +59,7 @@ public class AdminService {
     }
 
     public boolean addUser(UserRequestDTO requestDTO) {
-        return userService.registerUser(requestDTO);
+        return userService.registerUser(requestDTO, null, null);
     }
 
     public boolean updateUser(UserRequestDTO requestDTO, int userId) {

@@ -1,16 +1,10 @@
-function route(){
-console.log("clicked for route path");
-}
+ console.log("Toast script loaded");
 
-//const toastTrigger = document.getElementById('liveToastBtn')
-//const toastLiveExample = document.getElementById('liveToast')
-//
-//if (toastTrigger) {
-//    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-//    toastTrigger.addEventListener('click', () => {
-//      toastBootstrap.show()
-//  })
-//}
-
-const toastMessage = "${success}";
-console.log("toastMessage: " + toastMessage);
+  document.addEventListener('DOMContentLoaded', function () {
+           console.log("DOM fully loaded and parsed");
+          const toastEl = document.querySelector('.toast');
+          if (toastEl) {
+              const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+              toast.show();
+          }
+      });

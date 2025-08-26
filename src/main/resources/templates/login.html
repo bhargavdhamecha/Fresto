@@ -50,31 +50,6 @@
     </div>
 </div>
 
-<!-- Alert Messages -->
-<div class="toast-container position-fixed bottom-0 end-0 p-3 ">
-    <div id="toastError" th:if="${param.error}" class="toast text-bg-danger" role="alert" aria-live="assertive"
-         aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto">Error</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            <p>Invalid credentials!</p>
-        </div>
-    </div>
-
-    <div id="toastSuccess" th:if="${param.logout}" class="toast text-bg-success" role="alert" aria-live="assertive"
-         aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto">Success</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            <p>Logged out successfully!</p>
-        </div>
-    </div>
-</div>
-
 <!--<script th:inline="javascript">-->
 <!--  const toastTrigger = document.getElementById('liveToastBtn')-->
 <!--const toastLiveExample = document.getElementById('liveToast')-->
@@ -86,6 +61,8 @@
 <!--  })-->
 <!--}-->
 <!--</script>-->
+<div th:replace="fragments/alert-message :: alert-message"></div>
 <script th:src="@{/javascript/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/javascript/index.js}"></script>
 </body>
 </html>

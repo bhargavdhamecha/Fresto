@@ -111,4 +111,13 @@ public class ProductService {
         log.info("Searching products with query: {}", query);
         return productRepository.searchProductsByNameOrDescription(query);
     }
+
+    public List<Product> sortProducts(String sortBy) {
+        log.info("Sorting products by: {}", sortBy);
+        return switch (sortBy.toLowerCase()) {
+            case "price" -> productRepository.findAllByOrderByProductPriceAsc();
+            case "name" -> productRepository.findAllByOrderByProductNameAsc();
+            default -> productRepository.findAll();
+        };
+    }
 }

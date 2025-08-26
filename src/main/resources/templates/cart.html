@@ -8,7 +8,10 @@
 <body>
 <div layout:fragment="page_content" id="page_content">
     <h1 class="pr">Shipping Total</h1>
-    <div class="cart">
+    <div class="alert alert-info" th:if="${#lists.isEmpty(cartItems)}">
+        Your cart is empty.
+    </div>
+    <div class="cart" th:if="${not #lists.isEmpty(cartItems)}">
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -16,6 +19,7 @@
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -24,6 +28,12 @@
                 <td th:text="${item.product.productPrice}">Price</td>
                 <td th:text="${item.quantity}">Quantity</td>
                 <td th:text="${item.product.productPrice * item.quantity}">Total</td>
+                <td>
+                    <form th:action="@{/cart/remove-from-cart}" method="post">
+                        <input type="hidden" name="cartItemId" th:value="${item.id}"/>
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>

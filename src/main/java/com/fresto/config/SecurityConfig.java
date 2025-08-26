@@ -4,12 +4,18 @@ import com.fresto.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.context.DelegatingSecurityContextRepository;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -32,10 +38,10 @@ public class SecurityConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityContextRepository securityContextRepository) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/",HOME_PATH, BLOG_PATH,SIGN_UP_PATH, PRODUCTS_PATH+"/o"+"/**" ,ABOUT_PATH, CONTACT_PATH, "/auth/**","/css/**", "/images/**", "/javascript/**").permitAll()
+                        .requestMatchers("/", HOME_PATH, BLOG_PATH, SIGN_UP_PATH, PRODUCTS_PATH + "/o" + "/**", ABOUT_PATH, CONTACT_PATH, "/auth/**", "/css/**", "/images/**", "/javascript/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -45,17 +51,18 @@ public class SecurityConfig implements WebMvcConfigurer {
                         .passwordParameter("password")
                         .loginProcessingUrl(LOGIN_PROCESSING_PATH)
                         .successHandler(successHandler)
-                        .failureUrl(LOGIN_PATH+"?error")
+                        .failureUrl(LOGIN_PATH + "?error")
                         .permitAll()
                 )
 
                 .logout(logout -> logout
                         .logoutUrl("/auth/logout")
-                        .logoutSuccessUrl(LOGOUT +"?logout")
+                        .logoutSuccessUrl(LOGOUT + "?logout")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
-                );
+                )
+                .securityContext(customizer -> customizer.securityContextRepository(securityContextRepository));
         return http.build();
     }
 
@@ -75,4 +82,18 @@ public class SecurityConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/", HOME_PATH);
     }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
+
+    @Bean
+    public SecurityContextRepository securityContextRepository() {
+        return new DelegatingSecurityContextRepository(
+                new RequestAttributeSecurityContextRepository(),
+                new HttpSessionSecurityContextRepository()
+        );
+    }
+
 }
